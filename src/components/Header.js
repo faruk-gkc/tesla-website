@@ -2,59 +2,57 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
-import Fade from "react-reveal/Fade";
+import { selectCars } from "../features/car/CarSlice";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [burgerStatus, setBurgerStatus] = useState(false);
-
+  const cars = useSelector(selectCars);
   return (
     <Container>
       <a href="#">
         <img src="./images/logo.svg" alt="logo" />
       </a>
       <Menu>
-        <a href="#">Model S</a>
-        <a href="#">Model X</a>
-        <a href="#">Model 3</a>
-        <a href="#">Model Y</a>
+        {cars &&
+          cars.map((car, index) => (
+            <a key={index} href="#">
+              {car}
+            </a>
+          ))}
       </Menu>
       <RightMenu>
         <a href="#">Shop</a>
         <a href="#">Tesla Account</a>
         <MenuIconComponent onClick={() => setBurgerStatus(!burgerStatus)} />
       </RightMenu>
-        <BurgerMenu show={burgerStatus}>
-          <CloseWrapper>
-            <CustomClose onClick={() => setBurgerStatus(!burgerStatus)} />
-          </CloseWrapper>
-          <li>
-            <a href="#">Model S</a>
-          </li>
-          <li>
-            <a href="#">Model 3</a>
-          </li>
-          <li>
-            <a href="#">Model X</a>
-          </li>
-          <li>
-            <a href="#">Model Y</a>
-          </li>
-          <li>
-            <a href="#">Powerwall</a>
-          </li>
-          <li>
-            <a href="#">Energy</a>
-          </li>
-          <li>
-            <a href="#">Commercial Energy</a>
-          </li>
-          <li>
-            <a href="#">Utilities</a>
-          </li>
-          <li>
-            <a href="#">Charging</a>
-          </li>
-        </BurgerMenu>
+      <BurgerMenu show={burgerStatus}>
+        <CloseWrapper>
+          <CustomClose onClick={() => setBurgerStatus(!burgerStatus)} />
+        </CloseWrapper>
+            {
+                cars && cars.map((car,index)=>(
+                    <li key={index}>
+                        <a href="#">{car}</a>
+                  </li>
+                ))
+            }
+        <li>
+          <a href="#">Powerwall</a>
+        </li>
+        <li>
+          <a href="#">Energy</a>
+        </li>
+        <li>
+          <a href="#">Commercial Energy</a>
+        </li>
+        <li>
+          <a href="#">Utilities</a>
+        </li>
+        <li>
+          <a href="#">Charging</a>
+        </li>
+      </BurgerMenu>
     </Container>
   );
 };
@@ -111,7 +109,7 @@ const BurgerMenu = styled.div`
   background-color: #fff;
   width: 300px;
   z-index: 15;
-  transition:all .5s;
+  transition: all 0.5s;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
