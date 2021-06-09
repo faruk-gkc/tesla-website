@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import MenuIcon from '@material-ui/icons/Menu';
-import Fade from 'react-reveal/Fade';
-
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
+import Fade from "react-reveal/Fade";
 
 const Header = () => {
+  const [burgerStatus, setBurgerStatus] = useState(false);
+
   return (
     <Container>
-      <a>
+      <a href="#">
         <img src="./images/logo.svg" alt="logo" />
       </a>
       <Menu>
@@ -19,8 +21,40 @@ const Header = () => {
       <RightMenu>
         <a href="#">Shop</a>
         <a href="#">Tesla Account</a>
-        <MenuIconComponent/>
+        <MenuIconComponent onClick={() => setBurgerStatus(!burgerStatus)} />
       </RightMenu>
+        <BurgerMenu show={burgerStatus}>
+          <CloseWrapper>
+            <CustomClose onClick={() => setBurgerStatus(!burgerStatus)} />
+          </CloseWrapper>
+          <li>
+            <a href="#">Model S</a>
+          </li>
+          <li>
+            <a href="#">Model 3</a>
+          </li>
+          <li>
+            <a href="#">Model X</a>
+          </li>
+          <li>
+            <a href="#">Model Y</a>
+          </li>
+          <li>
+            <a href="#">Powerwall</a>
+          </li>
+          <li>
+            <a href="#">Energy</a>
+          </li>
+          <li>
+            <a href="#">Commercial Energy</a>
+          </li>
+          <li>
+            <a href="#">Utilities</a>
+          </li>
+          <li>
+            <a href="#">Charging</a>
+          </li>
+        </BurgerMenu>
     </Container>
   );
 };
@@ -35,6 +69,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  z-index: 5;
 `;
 
 const Menu = styled.div`
@@ -49,22 +84,61 @@ const Menu = styled.div`
     flex-wrap: nowrap;
     padding: 0 10px;
   }
-  @media screen and (max-width:768px){
-      display: none;
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 
 const RightMenu = styled.div`
-    display: flex;
-    align-items: center;
-      a {
+  display: flex;
+  align-items: center;
+  a {
     text-transform: uppercase;
     font-weight: 600;
     margin-right: 10px;
   }
-
 `;
 
 const MenuIconComponent = styled(MenuIcon)`
-    
+  cursor: pointer;
+`;
+
+const BurgerMenu = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  width: 300px;
+  z-index: 15;
+  transition:all .5s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 60px 100px 50px 30px;
+  transform: ${(props) => (props.show ? "translateX(0)" : "translateX(100%)")};
+  li {
+    list-style: none;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f3f3;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    a {
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+  }
+`;
+
+const CustomClose = styled(CloseIcon)`
+  position: absolute;
+  cursor: pointer;
+  top: -45px;
+  right: -80px;
+`;
+const CloseWrapper = styled.div`
+  position: relative;
+  background-color: red;
+  width: 100%;
 `;
