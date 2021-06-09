@@ -1,18 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-const Section = ({title,titleInfo,leftBtnText,rightBtnText,backgroundImage}) => {
-    // console.log(props);
+import Fade from "react-reveal/Fade";
+const Section = ({
+  title,
+  titleInfo,
+  leftBtnText,
+  rightBtnText,
+  backgroundImage,
+}) => {
+  // console.log(props);
   return (
     <Wrapper bgImage={backgroundImage}>
-      <SectionText>
-        <h1>{title}</h1>
-        <p>{titleInfo}</p>
-      </SectionText>
+      <Fade bottom>
+        <SectionText>
+          <h1>{title}</h1>
+          <p>{titleInfo}</p>
+        </SectionText>
+      </Fade>
       <Buttons>
-        <ButtonGroup>
-          <LeftButton>{leftBtnText}</LeftButton>
-          <RightButton>{rightBtnText}</RightButton>
-        </ButtonGroup>
+        <Fade bottom>
+          <ButtonGroup>
+            <LeftButton>{leftBtnText}</LeftButton>
+            {rightBtnText && <RightButton>{rightBtnText}</RightButton>}
+          </ButtonGroup>
+        </Fade>
         <DownArrow src="/images/down-arrow.svg" />
       </Buttons>
     </Wrapper>
@@ -31,7 +42,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-image : ${props => `url("/images/${props.bgImage}")`}
+  background-image: ${(props) => `url("/images/${props.bgImage}")`};
 `;
 
 const SectionText = styled.div`
@@ -42,8 +53,8 @@ const SectionText = styled.div`
 const ButtonGroup = styled.div`
   display: flex;
   margin-bottom: 30px;
-  @media screen and (max-width:768px){
-      flex-direction:column;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
   }
 `;
 const LeftButton = styled.div`
@@ -60,13 +71,13 @@ const LeftButton = styled.div`
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing:2px;
-  margin:10px;
+  letter-spacing: 2px;
+  margin: 10px;
 `;
 const RightButton = styled(LeftButton)`
-    background-color: #fff;
-    color:#000;
-    opacity:.65
+  background-color: #fff;
+  color: #000;
+  opacity: 0.65;
 `;
 
 const DownArrow = styled.img`
@@ -76,5 +87,5 @@ const DownArrow = styled.img`
 `;
 
 const Buttons = styled.div`
-    /* background-color: bisque; */
-`
+  /* background-color: bisque; */
+`;

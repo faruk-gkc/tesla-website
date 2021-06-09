@@ -37,7 +37,6 @@ const Home = () => {
         title="Solar and Powerwall"
         titleInfo="Power Everything"
         leftBtnText="Learn More"
-        rightBtnText="Existing Inventory"
         backgroundImage="solar-panel.jpg"
       />
     </Container>
