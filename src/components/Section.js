@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-const Section = () => {
+const Section = ({title,titleInfo,leftBtnText,rightBtnText,backgroundImage}) => {
+    // console.log(props);
   return (
-    <Wrapper>
+    <Wrapper bgImage={backgroundImage}>
       <SectionText>
-        <h1>Model S</h1>
-        <p>Order Online for Touchless Delivery</p>
+        <h1>{title}</h1>
+        <p>{titleInfo}</p>
       </SectionText>
       <Buttons>
         <ButtonGroup>
-          <LeftButton>Custom Order</LeftButton>
-          <RightButton>Existing Inventory</RightButton>
+          <LeftButton>{leftBtnText}</LeftButton>
+          <RightButton>{rightBtnText}</RightButton>
         </ButtonGroup>
-        <DownArrow src="./images/down-arrow.svg"></DownArrow>
+        <DownArrow src="/images/down-arrow.svg" />
       </Buttons>
     </Wrapper>
   );
@@ -23,14 +24,14 @@ export default Section;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-image: url("./images/model-s.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image : ${props => `url("/images/${props.bgImage}")`}
 `;
 
 const SectionText = styled.div`
@@ -41,6 +42,9 @@ const SectionText = styled.div`
 const ButtonGroup = styled.div`
   display: flex;
   margin-bottom: 30px;
+  @media screen and (max-width:768px){
+      flex-direction:column;
+  }
 `;
 const LeftButton = styled.div`
   background-color: rgba(23, 26, 32, 0.8);
